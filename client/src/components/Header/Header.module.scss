@@ -1,0 +1,33 @@
+.root {
+	display: flex;
+	max-width: 1400px;
+	justify-content: space-between;
+	margin-bottom: 20px;
+	background-color: black;
+	color: white;
+	min-height: 50px;
+	align-items: center;
+}
+.account {
+	line-height: center;
+	margin-left: 10px;
+	width: 80%;
+	font-size: 35px;
+}
+.moneyInfo {
+	width: 15%;
+	display: flex;
+	font-size: 18px;
+	justify-content: center;
+
+	.money {
+		padding-left: 10px;
+	}
+}
+.login {
+	margin: 15px 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 5px;
+}

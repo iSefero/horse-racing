@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react';
+
+import axios from 'axios';
+
+import './App.scss';
+import Header from './components/Header';
+import HorseInfo from './components/HorseInfo';
+import RaceInfo from './components/RaceInfo';
+// import Footer from './components/Footer';
+
+import io from 'socket.io-client';
+const socket = io.connect('ws://localhost:3002');
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React.
-        </a>
-      </header>
-    </div>
-  );
+	const [items, setItems] = useState([]);
+	const [round, setRound] = useState([]);
+	console.log(round);
+
+	// useEffect(() => {
+	// 	const fetchHorse = async () => {
+	// 		const responce = await axios.get(`wss://localhost:3002`);
+	// 		setItems(responce.data);
+	// 		// console.log(responce.data);
+	// 	};
+	// 	fetchHorse();
+	// }, []);
+
+	// useEffect(() => {
+	socket.connect();
+	socket.emit('start');
+	return () => {
+		socket.on('ticker', (round) => {
+			setRound(round);
+		});
+	};
+	// }, [socket]);
+
+	return (
+		<div className="wrapper">
+			<Header />
+			<HorseInfo />
+			<RaceInfo />
+			{/* <Footer /> */}
+		</div>
+	);
 }
 
 export default App;

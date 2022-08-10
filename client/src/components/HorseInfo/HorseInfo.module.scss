@@ -1,0 +1,23 @@
+.root {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 15px;
+	font-size: 30px;
+	font-weight: 700;
+	padding-left: 15px;
+}
+.horseInfo {
+	width: 20%;
+}
+.horseRatio {
+	margin-left: 10px;
+	text-align: center;
+	width: 7%;
+}
+.horseBit {
+	text-align: center;
+	width: 15%;
+}
+.horseLane {
+	width: 60%;
+}
