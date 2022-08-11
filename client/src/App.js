@@ -1,46 +1,38 @@
-import { useEffect, useState } from 'react';
-
-import axios from 'axios';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setHorses } from './redux/slices/horseSlice';
 
 import './App.scss';
 import Header from './components/Header';
 import HorseInfo from './components/HorseInfo';
 import RaceInfo from './components/RaceInfo';
-// import Footer from './components/Footer';
 
 import io from 'socket.io-client';
 const socket = io.connect('ws://localhost:3002');
 
 function App() {
-	const [items, setItems] = useState([]);
-	const [round, setRound] = useState([]);
-	console.log(round);
+	const dispatch = useDispatch();
 
-	// useEffect(() => {
-	// 	const fetchHorse = async () => {
-	// 		const responce = await axios.get(`wss://localhost:3002`);
-	// 		setItems(responce.data);
-	// 		// console.log(responce.data);
-	// 	};
-	// 	fetchHorse();
-	// }, []);
+	const horseItem = useSelector((state) => state.horses.round);
 
-	// useEffect(() => {
-	socket.connect();
-	socket.emit('start');
-	return () => {
+	useEffect(() => {
+		socket.emit('start');
 		socket.on('ticker', (round) => {
-			setRound(round);
+			dispatch(setHorses(round));
 		});
-	};
-	// }, [socket]);
+		return () => {};
+	}, [socket]);
+
+	const horses = horseItem.map((obj) => <RaceInfo key={obj.name} {...obj} />);
+	const emptyRaces = [...new Array(6)].map((_, index) => <RaceInfo key={index} />);
 
 	return (
 		<div className="wrapper">
-			<Header />
-			<HorseInfo />
-			<RaceInfo />
-			{/* <Footer /> */}
+			<div>
+				<Header />
+				<HorseInfo />
+				<div>{horseItem.length ? horses : emptyRaces}</div>
+			</div>
 		</div>
 	);
 }

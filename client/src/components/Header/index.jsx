@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Header.module.scss';
 
-function index() {
+function Header() {
 	return (
 		<div className={styles.root}>
 			<div className={styles.account}>My account</div>
@@ -16,4 +16,4 @@ function index() {
 	);
 }
 
-export default index;
+export default Header;

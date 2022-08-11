@@ -1,21 +1,21 @@
-import React from 'react';
+import { useState } from 'react';
 
 import styles from './RaceInfo.module.scss';
 
-function index() {
+function RaceInfo({ ratio, name, distance }) {
 	return (
 		<div className={styles.root}>
-			<div className={styles.horseInfo}>Лариса</div>
-			<div className={styles.horseRatio}>1.34</div>
-			<div className={styles.bitInfo}>
-				<input className={styles.horseBit} type="number" />
-				<button onClick={() => console.log('hi')} className={styles.bitButton}>
+			<div className={styles.horseInfo}>{name}</div>
+			<div className={styles.horseRatio}>{ratio}</div>
+			<div className={styles.betInfo}>
+				<input className={styles.horseBet} type="number" />
+				<button className={styles.betButton} onClick={() => console.log('bet placed')}>
 					Pay
 				</button>
 			</div>
-			<div className={styles.lane}>0 m./1000 m.</div>
+			<div className={styles.lane}>{distance} m./1000 m.</div>
 		</div>
 	);
 }
 
-export default index;
+export default RaceInfo;
